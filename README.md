@@ -1,0 +1,68 @@
+# TC Codex
+
+Aplicativo Android para conversar com o Codex CLI autenticado no Termux. O app usa uma ponte HTTP local no próprio aparelho; não precisa de chave da API OpenAI. O repositório também contém uma interface web experimental que usa a API separadamente.
+
+## Baixar e instalar
+
+Baixe [`TC-Codex.apk`](TC-Codex.apk) neste repositório para o Android. Abra o arquivo e permita a instalação de apps pela origem escolhida, se o Android solicitar. O APK é distribuído para instalação manual e não pela Play Store.
+
+## Requisitos
+
+- Android 6.0 (API 23) ou superior.
+- [Termux](https://termux.dev/) instalado e aberto no mesmo aparelho.
+- Python 3 e Codex CLI instalados no Termux.
+- Uma sessão do Codex CLI autenticada (`codex login status`).
+
+## Começar a usar
+
+No Termux, instale os requisitos que estiverem faltando e autentique o Codex CLI. Depois inicie a ponte local:
+
+```sh
+python ~/TC-Codex/bridge.py
+```
+
+Se você clonou o projeto em outro lugar, ajuste o caminho do comando acima. Mantenha o Termux aberto enquanto usa o app. Na primeira inicialização, a ponte mostra um código de pareamento. No TC Codex, toque em **Conectar Termux**, informe o código e escolha a pasta do projeto, por exemplo `~/storage/downloads/meu-projeto`.
+
+O servidor escuta somente em `127.0.0.1` na porta `8766` por padrão. O código de pareamento fica em `~/.config/chat-facil/bridge-token`, com acesso privado ao usuário do Termux; remova esse arquivo para gerar outro código. Para encerrar a ponte, use Ctrl+C no Termux.
+
+## Recursos
+
+- Conversas com o Codex CLI usando a sessão autenticada do Termux.
+- Histórico local de conversas, anexos de imagens e APKs.
+- Navegação por arquivos e apps instalados, com confirmação do Android para desinstalações.
+- APKs, relatórios e arquivos finais são salvos em `~/storage/downloads` por padrão. No menu **Arquivos**, você pode escolher outra pasta existente.
+
+O Codex trabalha na pasta de projeto escolhida, usando o sandbox `workspace-write` e as aprovações do CLI. A pasta selecionada precisa estar na Home do Termux ou no armazenamento compartilhado. Para anexos, o limite é 24 MB por imagem e 250 MB por APK, com até cinco anexos por mensagem. APKs são copiados temporariamente para análise.
+
+## Estrutura
+
+- `bridge.py`: ponte local para o Codex CLI no Termux.
+- `android/`: código Java, interface web embarcada, manifesto e recursos do app Android.
+- `TC-Codex.apk`: APK pronto para instalação.
+- `server.py`, `app.js`, `index.html` e arquivos relacionados: interface web experimental baseada na API OpenAI.
+
+## Interface web experimental
+
+Esta versão é separada do app Android e requer uma chave da API OpenAI com acesso e cobrança configurados. Execute-a somente localmente:
+
+```sh
+cd ~/TC-Codex
+export OPENAI_API_KEY='sua-chave-aqui'
+python server.py
+```
+
+Abra `http://127.0.0.1:8765`. A chave permanece na variável de ambiente da sessão do Termux; não a coloque no código nem a envie ao GitHub. A porta pode ser alterada com `CHAT_FACIL_PORT`.
+
+## Código-fonte e compilação
+
+O fonte Android está em `android/src`, `android/assets` e `android/res`. O manifesto declara Android 6.0 como versão mínima. A compilação depende de ferramentas e arquivos do ambiente Termux (`aapt`, `javac`, `dx`, `zipalign`, `apksigner`, `keytool`, `android.jar` e recursos do framework Android).
+
+O script `workspace/build-android.sh` compila um app placeholder chamado Chat-Facil; ele não reproduz o APK TC Codex deste repositório. Os arquivos intermediários e keystores locais ficam ignorados pelo Git. Não publique seu keystore: sem ele, não é possível assinar uma atualização com a mesma identidade do APK já instalado.
+
+## Segurança e privacidade
+
+Não inclua tokens, chaves de API, dados de conversas ou keystores nos commits. O app comunica-se com a ponte por HTTP local e a ponte só escuta no loopback. A ponte inicia o Codex CLI com a pasta selecionada como diretório de trabalho; revise alterações sugeridas pelo Codex antes de usá-las.
+
+## Licença
+
+Nenhuma licença foi definida ainda. Sem uma licença, outras pessoas não recebem automaticamente permissão para redistribuir ou modificar este projeto. Adicione um arquivo `LICENSE` antes de aceitar contribuições ou declarar uma licença pública.

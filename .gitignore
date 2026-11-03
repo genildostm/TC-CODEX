@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Android build outputs and signing material
+android/build/
+android/gen/
+android/.android-build/
+.android-build/
+*.keystore
+*.jks
+*.idsig
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Older APK name
+Chat-Facil.apk
