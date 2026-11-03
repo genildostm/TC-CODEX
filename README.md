@@ -2,26 +2,52 @@
 
 Aplicativo Android para conversar com o Codex CLI autenticado no Termux. O app usa uma ponte HTTP local no próprio aparelho; não precisa de chave da API OpenAI. O repositório também contém uma interface web experimental que usa a API separadamente.
 
-## Baixar e instalar
+## Instalar o app Android
 
-Baixe [`TC-Codex.apk`](TC-Codex.apk) neste repositório para o Android. Abra o arquivo e permita a instalação de apps pela origem escolhida, se o Android solicitar. O APK é distribuído para instalação manual e não pela Play Store.
+1. No Android, baixe o [TC-Codex.apk](https://github.com/genildostm/TC-CODEX/raw/refs/heads/main/TC-Codex.apk) ou abra `TC-Codex.apk` na lista de arquivos do repositório e toque em **Download raw**.
+2. Abra o APK baixado. Se o Android pedir, permita a instalação de apps pela origem que abriu o arquivo (por exemplo, navegador ou app Arquivos).
+3. Volte ao instalador e toque em **Instalar**. Depois, abra **TC Codex**.
 
-## Requisitos
+O app requer Android 6.0 (API 23) ou superior. A instalação é manual; o app não está na Play Store.
 
-- Android 6.0 (API 23) ou superior.
-- [Termux](https://termux.dev/) instalado e aberto no mesmo aparelho.
-- Python 3 e Codex CLI instalados no Termux.
-- Uma sessão do Codex CLI autenticada (`codex login status`).
+## Preparar o Termux e instalar o Codex
 
-## Começar a usar
+Instale o [Termux](https://termux.dev/) no mesmo aparelho e abra-o. Estes passos usam a adaptação comunitária [codex-termux](https://github.com/DioNanos/codex-termux), distribuída como [`@mmmbuto/codex-cli-termux`](https://www.npmjs.com/package/@mmmbuto/codex-cli-termux), mantida fora da OpenAI. A documentação oficial do [Codex CLI](https://developers.openai.com/codex/cli) não documenta um instalador para Android/Termux.
 
-No Termux, instale os requisitos que estiverem faltando e autentique o Codex CLI. Depois inicie a ponte local:
+No Termux, rode:
+
+```sh
+pkg update && pkg upgrade -y
+pkg install nodejs-lts python git -y
+termux-setup-storage
+npm install -g @mmmbuto/codex-cli-termux@latest
+codex --version
+codex login
+```
+
+Quando `termux-setup-storage` pedir, autorize o acesso aos arquivos compartilhados. Siga as instruções do Codex para autenticar uma conta compatível. Para usar o Codex diretamente no terminal, crie uma pasta e inicie-o:
+
+```sh
+mkdir -p ~/meu-app
+cd ~/meu-app
+codex
+```
+
+## Conectar o app ao Termux
+
+O app Android precisa da ponte deste repositório. No Termux, clone o projeto (pule esta etapa se a pasta `~/TC-Codex` já existir):
+
+```sh
+git clone https://github.com/genildostm/TC-CODEX.git ~/TC-Codex
+```
+
+Inicie a ponte e mantenha o Termux aberto enquanto usa o app:
 
 ```sh
 python ~/TC-Codex/bridge.py
 ```
 
-Se você clonou o projeto em outro lugar, ajuste o caminho do comando acima. Mantenha o Termux aberto enquanto usa o app. Na primeira inicialização, a ponte mostra um código de pareamento. No TC Codex, toque em **Conectar Termux**, informe o código e escolha a pasta do projeto, por exemplo `~/storage/downloads/meu-projeto`.
+Na primeira inicialização, copie o código de pareamento exibido no Termux. No TC Codex, toque em **Conectar Termux**, informe o código e escolha a pasta do projeto, por exemplo `~/meu-app` ou `~/storage/downloads/meu-projeto`.
 
 O servidor escuta somente em `127.0.0.1` na porta `8766` por padrão. O código de pareamento fica em `~/.config/chat-facil/bridge-token`, com acesso privado ao usuário do Termux; remova esse arquivo para gerar outro código. Para encerrar a ponte, use Ctrl+C no Termux.
 
