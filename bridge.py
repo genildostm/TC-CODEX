@@ -14,7 +14,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 HOST = '127.0.0.1'
-PORT = int(os.environ.get('TC_CODEX_BRIDGE_PORT', os.environ.get('CHAT_FACIL_BRIDGE_PORT', '8766')))
+PORT = int(os.environ.get('TC_CODEX_BRIDGE_PORT', '8766'))
 HOME = Path.home().resolve()
 TOKEN_DIR = HOME / '.config' / 'tc-codex'
 TOKEN_FILE = TOKEN_DIR / 'bridge-token'

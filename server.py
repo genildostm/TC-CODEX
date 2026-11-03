@@ -7,7 +7,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 ROOT=Path(__file__).resolve().parent
 HOST='127.0.0.1'
-PORT=int(os.environ.get('TC_CODEX_PORT',os.environ.get('CHAT_FACIL_PORT','8765')))
+PORT=int(os.environ.get('TC_CODEX_PORT','8765'))
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*args,**kwargs): super().__init__(*args,directory=str(ROOT),**kwargs)
     def do_POST(self):
