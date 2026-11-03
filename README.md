@@ -91,4 +91,4 @@ Não inclua tokens, chaves de API, dados de conversas ou keystores nos commits. 
 
 ## Licença
 
-Nenhuma licença foi definida ainda. Sem uma licença, outras pessoas não recebem automaticamente permissão para redistribuir ou modificar este projeto. Adicione um arquivo `LICENSE` antes de aceitar contribuições ou declarar uma licença pública.
+Este projeto está licenciado sob os termos da [licença MIT](LICENSE).
