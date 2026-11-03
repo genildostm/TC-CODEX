@@ -16,5 +16,5 @@ android/.android-build/
 .env.*
 !.env.example
 
-# Older APK name
-Chat-Facil.apk
+# Placeholder build output
+TC-Codex-placeholder.apk

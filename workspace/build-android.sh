@@ -2,7 +2,7 @@
 set -eu
 
 ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-OUT=/storage/emulated/0/Download/Chat-Facil.apk
+OUT=/storage/emulated/0/Download/TC-Codex-placeholder.apk
 BUILD="$ROOT/.android-build"
 ANDROID_JAR="${ANDROID_JAR:-$PREFIX/share/java/android.jar}"
 FRAMEWORK_RES="${FRAMEWORK_RES:-/system/framework/framework-res.apk}"
@@ -10,7 +10,7 @@ FRAMEWORK_RES="${FRAMEWORK_RES:-/system/framework/framework-res.apk}"
 rm -rf "$BUILD"
 mkdir -p "$BUILD/classes"
 javac -source 8 -target 8 -bootclasspath "$ANDROID_JAR" -d "$BUILD/classes" \
-  "$ROOT/src/br/com/chatfacil/placeholder/MainActivity.java"
+  "$ROOT/src/br/com/tccodex/placeholder/MainActivity.java"
 dx --dex --output="$BUILD/classes.dex" "$BUILD/classes"
 aapt package -f -M "$ROOT/AndroidManifest.xml" -I "$ANDROID_JAR" \
   -I "$FRAMEWORK_RES" -F "$BUILD/unsigned.apk"

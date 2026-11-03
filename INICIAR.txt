@@ -1,4 +1,4 @@
-CHAT FÁCIL — APK COM CODEX NO TERMUX
+TC-CODEX — APK COM CODEX NO TERMUX
 
 1. No Termux, confira que o Codex CLI está autenticado:
    codex login status

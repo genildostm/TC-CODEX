@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Servidor local para o Chat Fácil."""
+"""Servidor web experimental do TC-Codex."""
 import json, os
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -7,7 +7,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 ROOT=Path(__file__).resolve().parent
 HOST='127.0.0.1'
-PORT=int(os.environ.get('CHAT_FACIL_PORT','8765'))
+PORT=int(os.environ.get('TC_CODEX_PORT',os.environ.get('CHAT_FACIL_PORT','8765')))
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*args,**kwargs): super().__init__(*args,directory=str(ROOT),**kwargs)
     def do_POST(self):
@@ -39,8 +39,8 @@ class Handler(SimpleHTTPRequestHandler):
     def send_json(self,status,value):
         raw=json.dumps(value,ensure_ascii=False).encode(); self.send_response(status)
         self.send_header('Content-Type','application/json; charset=utf-8'); self.send_header('Content-Length',str(len(raw))); self.send_header('Cache-Control','no-store'); self.end_headers(); self.wfile.write(raw)
-    def log_message(self,fmt,*args): print('[chat-facil] '+fmt%args)
+    def log_message(self,fmt,*args): print('[TC-Codex] '+fmt%args)
 if __name__=='__main__':
-    print(f'Chat Fácil disponível em http://{HOST}:{PORT}')
+    print(f'TC-Codex disponível em http://{HOST}:{PORT}')
     print('Pare com Ctrl+C. A chave da API fica apenas nesta sessão do Termux.')
     ThreadingHTTPServer((HOST,PORT),Handler).serve_forever()

@@ -14,7 +14,7 @@ O servidor escuta somente em `127.0.0.1`. O código de pareamento fica em `~/.co
 
 ## APK e assinatura
 
-O APK pronto para instalação está em [`../TC-Codex.apk`](../TC-Codex.apk). Pacote Android: `com.chatfacil.app`; versão mínima: Android 6.0 (API 23). Para verificar a assinatura no Termux:
+O APK pronto para instalação está em [`../TC-Codex.apk`](../TC-Codex.apk). Identificador interno do Android é mantido para compatibilidade com instalações existentes; versão mínima: Android 6.0 (API 23). Para verificar a assinatura no Termux:
 
 ```sh
 apksigner verify --verbose --print-certs TC-Codex.apk
@@ -25,4 +25,4 @@ A impressão SHA-256 do certificado desta versão é `7efeb754bd0e4a64081be07b25
 
 ## Compilação
 
-O fonte Android está em `src/`, `assets/` e `res/`. A compilação requer ferramentas e arquivos do ambiente Termux (`aapt`, `javac`, `dx`, `zipalign`, `apksigner`, `keytool`, `android.jar` e recursos do framework Android). O script `../workspace/build-android.sh` é apenas um build placeholder Chat-Facil; não recria este APK TC Codex.
+O fonte Android está em `src/`, `assets/` e `res/`. A compilação requer ferramentas e arquivos do ambiente Termux (`aapt`, `javac`, `dx`, `zipalign`, `apksigner`, `keytool`, `android.jar` e recursos do framework Android). O script `../workspace/build-android.sh` é apenas um build placeholder separado; não recria este APK TC Codex.

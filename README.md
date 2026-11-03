@@ -77,13 +77,13 @@ export OPENAI_API_KEY='sua-chave-aqui'
 python server.py
 ```
 
-Abra `http://127.0.0.1:8765`. A chave permanece na variável de ambiente da sessão do Termux; não a coloque no código nem a envie ao GitHub. A porta pode ser alterada com `CHAT_FACIL_PORT`.
+Abra `http://127.0.0.1:8765`. A chave permanece na variável de ambiente da sessão do Termux; não a coloque no código nem a envie ao GitHub. A porta pode ser alterada com `TC_CODEX_PORT`.
 
 ## Código-fonte e compilação
 
 O fonte Android está em `android/src`, `android/assets` e `android/res`. O manifesto declara Android 6.0 como versão mínima. A compilação depende de ferramentas e arquivos do ambiente Termux (`aapt`, `javac`, `dx`, `zipalign`, `apksigner`, `keytool`, `android.jar` e recursos do framework Android).
 
-O script `workspace/build-android.sh` compila um app placeholder chamado Chat-Facil; ele não reproduz o APK TC Codex deste repositório. Os arquivos intermediários e keystores locais ficam ignorados pelo Git. Não publique seu keystore: sem ele, não é possível assinar uma atualização com a mesma identidade do APK já instalado.
+O script `workspace/build-android.sh` compila um aplicativo placeholder separado; ele não reproduz o APK TC Codex deste repositório. Os arquivos intermediários e keystores locais ficam ignorados pelo Git. Não publique seu keystore: sem ele, não é possível assinar uma atualização com a mesma identidade do APK já instalado.
 
 ## Segurança e privacidade
 

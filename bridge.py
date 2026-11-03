@@ -14,7 +14,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 HOST = '127.0.0.1'
-PORT = int(os.environ.get('CHAT_FACIL_BRIDGE_PORT', '8766'))
+PORT = int(os.environ.get('TC_CODEX_BRIDGE_PORT', os.environ.get('CHAT_FACIL_BRIDGE_PORT', '8766')))
 HOME = Path.home().resolve()
 TOKEN_DIR = HOME / '.config' / 'tc-codex'
 TOKEN_FILE = TOKEN_DIR / 'bridge-token'
@@ -37,7 +37,7 @@ DEFAULT_OUTPUT = HOME / 'storage' / 'downloads'
 SESSIONS = {}
 SESSIONS_LOCK = threading.Lock()
 SESSION_LOCKS = {}
-UPLOAD_ROOT = HOME / '.cache' / 'chat-facil' / 'uploads'
+UPLOAD_ROOT = HOME / '.cache' / 'tc-codex' / 'uploads'
 UPLOAD_ROOT.mkdir(parents=True, exist_ok=True)
 UPLOADS = {}
 UPLOADS_LOCK = threading.Lock()
@@ -198,7 +198,7 @@ def run_codex(workspace, session_id, prompt, image_paths=None, output_dir=None):
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = 'ChatFacilBridge/1.0'
+    server_version = 'TCCodexBridge/1.0'
     def _authorized(self):
         return secrets.compare_digest(self.headers.get('Authorization', ''), 'Bearer ' + PAIR_CODE)
     def _json(self, status, data):
@@ -303,7 +303,7 @@ class Handler(BaseHTTPRequestHandler):
                 attached = [UPLOADS.get(item) for item in attachment_ids]
             if any(not item or item['session_id'] != session_id or item['workspace'] != str(workspace) for item in attached):
                 raise ValueError('Um anexo expirou ou pertence a outra conversa/pasta. Anexe-o novamente.')
-            staged = Path(tempfile.mkdtemp(prefix='.chat-facil-attach-', dir=str(workspace))) if attached else None
+            staged = Path(tempfile.mkdtemp(prefix='.tc-codex-attach-', dir=str(workspace))) if attached else None
             image_paths = []
             descriptions = []
             try:
@@ -330,7 +330,7 @@ class Handler(BaseHTTPRequestHandler):
         except (ValueError, RuntimeError) as error: self._json(400, {'error': str(error)})
         except subprocess.TimeoutExpired: self._json(504, {'error': 'Codex demorou demais. Tente novamente.'})
         except Exception as error: self._json(500, {'error': str(error) or 'Erro inesperado no serviço local.'})
-    def log_message(self, fmt, *args): print('[chat-facil] ' + fmt % args)
+    def log_message(self, fmt, *args): print('[TC-Codex] ' + fmt % args)
 
 if __name__ == '__main__':
     if not shutil.which('codex'):
