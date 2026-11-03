@@ -14,7 +14,7 @@ CHAT FÁCIL — APK COM CODEX NO TERMUX
 
 O app usa sua sessão do Codex CLI; não pede uma chave da API. O serviço só
 aceita conexões locais e limita Codex à pasta de projeto escolhida. O código
-de pareamento fica privado em ~/.config/chat-facil/bridge-token.
+de pareamento fica privado em ~/.config/tc-codex/bridge-token.
 
 APK: TC-Codex.apk nesta pasta. Para abrir o instalador:
    termux-open ~/TC-Codex/TC-Codex.apk

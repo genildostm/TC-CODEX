@@ -49,7 +49,7 @@ python ~/TC-Codex/bridge.py
 
 Na primeira inicialização, copie o código de pareamento exibido no Termux. No TC Codex, toque em **Conectar Termux**, informe o código e escolha a pasta do projeto, por exemplo `~/meu-app` ou `~/storage/downloads/meu-projeto`.
 
-O servidor escuta somente em `127.0.0.1` na porta `8766` por padrão. O código de pareamento fica em `~/.config/chat-facil/bridge-token`, com acesso privado ao usuário do Termux; remova esse arquivo para gerar outro código. Para encerrar a ponte, use Ctrl+C no Termux.
+O servidor escuta somente em `127.0.0.1` na porta `8766` por padrão. O código de pareamento fica em `~/.config/tc-codex/bridge-token`, com acesso privado ao usuário do Termux; remova esse arquivo para gerar outro código. Para encerrar a ponte, use Ctrl+C no Termux.
 
 ## Recursos
 

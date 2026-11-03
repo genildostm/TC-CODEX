@@ -16,11 +16,16 @@ from pathlib import Path
 HOST = '127.0.0.1'
 PORT = int(os.environ.get('CHAT_FACIL_BRIDGE_PORT', '8766'))
 HOME = Path.home().resolve()
-TOKEN_DIR = HOME / '.config' / 'chat-facil'
+TOKEN_DIR = HOME / '.config' / 'tc-codex'
 TOKEN_FILE = TOKEN_DIR / 'bridge-token'
+LEGACY_TOKEN_FILE = HOME / '.config' / 'chat-facil' / 'bridge-token'
 TOKEN_DIR.mkdir(parents=True, exist_ok=True)
 if TOKEN_FILE.exists():
     PAIR_CODE = TOKEN_FILE.read_text(encoding='utf-8').strip()
+elif LEGACY_TOKEN_FILE.exists():
+    PAIR_CODE = LEGACY_TOKEN_FILE.read_text(encoding='utf-8').strip()
+    TOKEN_FILE.write_text(PAIR_CODE, encoding='utf-8')
+    TOKEN_FILE.chmod(0o600)
 else:
     PAIR_CODE = secrets.token_urlsafe(24)
     TOKEN_FILE.write_text(PAIR_CODE, encoding='utf-8')

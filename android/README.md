@@ -10,7 +10,7 @@ O APK conversa com o Codex CLI autenticado no próprio Termux por uma ponte loca
 4. No APK, toque em **Conectar Termux**, informe o código e escolha a pasta do projeto.
 5. Mantenha o Termux aberto enquanto usa o app. Encerre a ponte com Ctrl+C.
 
-O servidor escuta somente em `127.0.0.1`. O código de pareamento fica em `~/.config/chat-facil/bridge-token`; remova esse arquivo para gerar outro. O Codex trabalha na pasta de projeto escolhida, dentro do sandbox `workspace-write`. APKs, relatórios e arquivos finais são salvos em Downloads por padrão.
+O servidor escuta somente em `127.0.0.1`. O código de pareamento fica em `~/.config/tc-codex/bridge-token`; remova esse arquivo para gerar outro. O Codex trabalha na pasta de projeto escolhida, dentro do sandbox `workspace-write`. APKs, relatórios e arquivos finais são salvos em Downloads por padrão.
 
 ## APK e assinatura
 
